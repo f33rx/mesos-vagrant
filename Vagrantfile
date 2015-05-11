@@ -15,9 +15,10 @@ Vagrant.configure(2) do |config|
     # config.ssh.private_key_path = "~/.ssh/id_rsa"
     config.vm.boot_timeout = 300
     config.vm.box = "boxcutter/centos70"
-    config.vm.provider "vmware_fusion" do |v|
-        v.gui = true
-    end
+    config.vm.synced_folder "/Users/nheadleyperdue/src/devops_mesos", "/home/vagrant/devops_mesos"
+  #  config.vm.provider "vmware_fusion" do |v|
+  #      v.gui = true
+  #  end
     config.vm.define "node1" do |node1|
         node1.vm.network :private_network, type: :dhcp 
         node1.vm.network "private_network", ip: "192.168.12.10"

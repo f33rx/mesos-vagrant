@@ -31,9 +31,8 @@
       - name: install go and dns tools
         yum: pkg=golang,git,bind-utils state=latest
       - name: build mesos-dns
-        shell: sudo -u vagrant sh /vagrant/installdns.sh
-      - name: install outyet
-        shell: sudo docker load --input=/vagrant/outyet.tar.gz
+        shell: sh /home/vagrant/devops_mesos/vagrant/installdns.sh
+
 
 - hosts: nodes
   remote_user: vagrant
@@ -48,10 +47,9 @@
       - name: install the mesos and docker packages
         yum: pkg=mesos,docker state=latest
       - name: set the zookeeper master
-        shell: sed -i -e 's/localhost/192.168.33.10/g' /etc/mesos/zk
+        shell: sed -i -e 's/localhost/192.168.12.10/g' /etc/mesos/zk
       - name: make sure mesos-slave is running
         service: name=mesos-slave state=started enabled=yes
       - name: start docker
         service: name=docker state=started enabled=yes
-      - name: install outyet
-        shell: sudo docker load --input=/vagrant/outyet.tar.gz
+
